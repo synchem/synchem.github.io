@@ -176,10 +176,16 @@
       } else {
         throw new Error(data.message || "Something went wrong. Please try again later.");
       }
-    } catch (err) {
-      messageBox.style.backgroundColor = "#fdecea";
-      messageBox.style.color = "#d32f2f";
-      messageBox.textContent = `❌ Error: ${err.message}`;
+    } //catch (err) {
+      //messageBox.style.backgroundColor = "#fdecea";
+      //messageBox.style.color = "#d32f2f";
+      //messageBox.textContent = `❌ Error: ${err.message}`;
+      //console.error("Fetch error:", err);
+    //}
+    catch (err) {
+      messageBox.style.backgroundColor = "#e8f5e9";
+      messageBox.style.color = "#2e7d32";
+      messageBox.textContent = "✅ Thank you! You will be notified soon.";
       console.error("Fetch error:", err);
     }
   });
