@@ -180,26 +180,30 @@
 
   <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
 
-  <script>
-	document.getElementById('notifyForm').addEventListener('submit', async function (e) {
-	  e.preventDefault();
-	
-	  const email = document.getElementById('emailInput').value;
-	  const responseBox = document.getElementById('jsonOutput');
-	  responseBox.style.display = "block";
-	
-	  try {
-	    const url = `https://script.google.com/macros/s/AKfycbxX_-FTv5B-HnzdfDAZcx1P2R8YrHNezxpFFYp2BR8mGZTAEpW3iRLKt1sE219uxa1jfw/exec?email=${encodeURIComponent(email)}`;
-	    const response = await fetch(url); // GET request
-	    const data = await response.json();
-	
-	    responseBox.textContent = JSON.stringify(data, null, 2);
-	  } catch (err) {
-	    responseBox.textContent = `Error: ${err}`;
-	    console.error(err);
-	  }
-	});
+<script>
+  document.getElementById('notifyForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-  </script>
+    const email = document.getElementById('emailInput').value;
+    const responseBox = document.getElementById('jsonOutput');
+    
+    if (!responseBox) {
+      console.error("Element with ID 'jsonOutput' not found.");
+      return;
+    }
+
+    responseBox.style.display = "block";
+
+    try {
+      const url = `https://script.google.com/macros/s/AKfycbxX_-FTv5B-HnzdfDAZcx1P2R8YrHNezxpFFYp2BR8mGZTAEpW3iRLKt1sE219uxa1jfw/exec?email=${encodeURIComponent(email)}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      responseBox.textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+      responseBox.textContent = `Error: ${err}`;
+      console.error(err);
+    }
+  });
+</script>
 </body>
 </html>
