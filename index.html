@@ -181,24 +181,25 @@
   <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
 
   <script>
-      const webhookURL = "https://script.google.com/macros/s/AKfycbw3jDskt7-6neX-cQ5qAb5CgAI_Yuy9RtVgPp75khjOS-TjyzbicXS8gGZeSYVbXzTj/exec"; // Replace this
+	document.getElementById('notifyForm').addEventListener('submit', async function (e) {
+	  e.preventDefault();
+	
+	  const email = document.getElementById('emailInput').value;
+	  const responseBox = document.getElementById('jsonOutput');
+	  responseBox.style.display = "block";
+	
+	  try {
+	    const url = `https://script.google.com/macros/s/AKfycbxX_-FTv5B-HnzdfDAZcx1P2R8YrHNezxpFFYp2BR8mGZTAEpW3iRLKt1sE219uxa1jfw/exec?email=${encodeURIComponent(email)}`;
+	    const response = await fetch(url); // GET request
+	    const data = await response.json();
+	
+	    responseBox.textContent = JSON.stringify(data, null, 2);
+	  } catch (err) {
+	    responseBox.textContent = `Error: ${err}`;
+	    console.error(err);
+	  }
+	});
 
-	  document.getElementById("notifyForm").addEventListener("submit", function(e) {
-		e.preventDefault();
-		const email = document.getElementById("emailInput").value;
-
-		fetch(`${webhookURL}?email=${encodeURIComponent(email)}`)
-		  .then(response => response.text())
-		  .then(data => {
-			alert("Thanks! You've been added to our list.");
-			document.getElementById("emailInput").value = "";
-		  })
-		  .catch(error => {
-			console.error("Error:", error);
-			alert("Something went wrong. Please try again later.");
-		  });
-	  });
-  
   </script>
 </body>
 </html>
