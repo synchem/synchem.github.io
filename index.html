@@ -14,25 +14,28 @@
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 0;
       font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('1286689.jpg') no-repeat center center/cover;
       color: var(--green);
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
       flex-direction: column;
       text-align: center;
       padding: 20px;
+      min-height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.5s ease-in-out;
     }
 
     img.logo {
-      width: 160px;
+      width: 180px;
       max-width: 40vw;
       margin-bottom: 20px;
       animation: floatIn 1.2s ease-in-out;
@@ -44,18 +47,18 @@
     }
 
     h1 {
-      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-size: clamp(2.5rem, 5vw, 3rem);
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
       margin-bottom: 10px;
-      color: var(--light-green);
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     p {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      color: #fff;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: #f0f0f0;
       max-width: 600px;
       margin-bottom: 30px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     }
 
     form {
@@ -63,8 +66,8 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      width: 100%;
       max-width: 500px;
+      width: 100%;
     }
 
     input[type="email"] {
@@ -72,9 +75,8 @@
       width: 100%;
       max-width: 300px;
       border: 2px solid var(--green);
-      border-radius: 5px;
-      outline: none;
-      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      border-radius: 6px;
+      font-size: 1rem;
       background: rgba(255, 255, 255, 0.9);
     }
 
@@ -83,8 +85,8 @@
       background-color: var(--red);
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      border-radius: 6px;
+      font-size: 1rem;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -95,14 +97,13 @@
 
     #messageBox {
       display: none;
-      padding: 12px;
+      padding: 14px;
       margin-top: 20px;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 1rem;
       font-weight: 500;
-      max-width: 500px;
       width: 100%;
-      text-align: center;
+      max-width: 500px;
     }
 
     footer {
@@ -116,8 +117,9 @@
     @media (max-width: 768px) {
       img.logo {
         width: 120px;
-        max-width: 35vw;
+        max-width: 30vw;
       }
+
       form {
         flex-direction: column;
         align-items: center;
@@ -126,10 +128,9 @@
   </style>
 </head>
 <body>
-  <img src="img8.png" alt="Frutolyte Logo" class="logo" />
+  <!--<img src="Logo.png" style="width: 500px; height: auto;" alt="Frutolyte Logo" class="logo" />-->
   <h1>Coming Soon</h1>
-  <h2>Frutolyte - An ORS Product</h2>
-  <p>We’re working on something refreshing for your health. Frutolyte will be live soon!</p>
+  <p><strong>We’re working on something refreshing for your health. Frutolyte will be live soon!</strong></p>
 
   <form id="notifyForm">
     <input type="email" id="emailInput" placeholder="Enter your email to get updates" required />
@@ -140,55 +141,62 @@
 
   <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
 
-<script>
-  document.getElementById('notifyForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+  <script>
+    // Set appropriate background image based on orientation
+    function setBackgroundImage() {
+      const isPortrait = window.innerHeight > window.innerWidth;
+      const bgImage = isPortrait ? 'BG_P.png' : 'BG_L.png';
+      document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${bgImage}')`;
+    }
 
-    const email = document.getElementById('emailInput').value;
-    const messageBox = document.getElementById('messageBox');
+    window.addEventListener('load', setBackgroundImage);
+    window.addEventListener('resize', setBackgroundImage);
 
-    messageBox.style.display = "block";
-    messageBox.textContent = "Submitting... please wait.";
-    messageBox.style.backgroundColor = "#fff3cd";
-    messageBox.style.color = "#856404";
+    // Email Submission
+    document.getElementById('notifyForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const messageBox = document.getElementById('messageBox');
 
-    try {
-      const url = "https://script.google.com/macros/s/AKfycbxOz4DaxOMAi92aVdETZDJsavQPzagOmfNcVSjuEmPOcCfv5GHZnK9flfvhfE2NYUvUsA/exec";
-      const response = await fetch(url, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `email=${encodeURIComponent(email)}`
-      });
+      messageBox.style.display = "block";
+      messageBox.textContent = "Submitting... please wait.";
+      messageBox.style.backgroundColor = "#fff3cd";
+      messageBox.style.color = "#856404";
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      try {
+        const url = "https://script.google.com/macros/s/AKfycbxOz4DaxOMAi92aVdETZDJsavQPzagOmfNcVSjuEmPOcCfv5GHZnK9flfvhfE2NYUvUsA/exec";
+        const response = await fetch(url, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: `email=${encodeURIComponent(email)}`
+        });
 
-      const data = await response.json();
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
 
-      if (data.success) {
+        if (data.success) {
+          messageBox.style.backgroundColor = "#e8f5e9";
+          messageBox.style.color = "#2e7d32";
+          messageBox.textContent = "✅ Thank you! You will be notified soon.";
+        } else {
+          throw new Error(data.message || "Something went wrong.");
+        }
+      } //catch (err) {
+      //messageBox.style.backgroundColor = "#fdecea";
+      //messageBox.style.color = "#d32f2f";
+      //messageBox.textContent = ❌ Error: ${err.message};
+      //console.error("Fetch error:", err);
+    //}
+      catch (err) {
         messageBox.style.backgroundColor = "#e8f5e9";
         messageBox.style.color = "#2e7d32";
         messageBox.textContent = "✅ Thank you! You will be notified soon.";
-      } else {
-        throw new Error(data.message || "Something went wrong. Please try again later.");
+        console.error("Fetch error:", err);
       }
-    } //catch (err) {
-      //messageBox.style.backgroundColor = "#fdecea";
-      //messageBox.style.color = "#d32f2f";
-      //messageBox.textContent = `❌ Error: ${err.message}`;
-      //console.error("Fetch error:", err);
-    //}
-    catch (err) {
-      messageBox.style.backgroundColor = "#e8f5e9";
-      messageBox.style.color = "#2e7d32";
-      messageBox.textContent = "✅ Thank you! You will be notified soon.";
-      console.error("Fetch error:", err);
-    }
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
