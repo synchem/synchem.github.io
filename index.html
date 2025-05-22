@@ -140,44 +140,49 @@
 
   <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
 
-  <script>
-    document.getElementById('notifyForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-    
-      const email = document.getElementById('emailInput').value;
-      const messageBox = document.getElementById('messageBox');
-    
-      messageBox.style.display = "block";
-      messageBox.textContent = "Submitting... please wait.";
-      messageBox.style.backgroundColor = "#fff3cd";
-      messageBox.style.color = "#856404";
-    
-      try {
-        const url = "https://script.google.com/macros/s/AKfycbxOz4DaxOMAi92aVdETZDJsavQPzagOmfNcVSjuEmPOcCfv5GHZnK9flfvhfE2NYUvUsA/exec";
-        const formData = new FormData();
-        formData.append("email", email);
-    
-        const response = await fetch(url, {
-          method: "POST",
-          body: formData
-        });
-    
-        const data = await response.json();
-    
-        if (data.success) {
-          messageBox.style.backgroundColor = "#e8f5e9";
-          messageBox.style.color = "#2e7d32";
-          messageBox.textContent = "✅ Thank you! You will be notified soon.";
-        } else {
-          throw new Error(data.message || "Something went wrong.");
-        }
-      } catch (err) {
-        messageBox.style.backgroundColor = "#fdecea";
-        messageBox.style.color = "#d32f2f";
-        messageBox.textContent = `❌ Error: ${err.message}`;
-        console.error(err);
+<script>
+  document.getElementById('notifyForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('emailInput').value;
+    const messageBox = document.getElementById('messageBox');
+
+    messageBox.style.display = "block";
+    messageBox.textContent = "Submitting... please wait.";
+    messageBox.style.backgroundColor = "#fff3cd";
+    messageBox.style.color = "#856404";
+
+    try {
+      const url = `https://script.google.com/macros/s/AKfycbxOz4DaxOMAi92aVdETZDJsavQPzagOmfNcVSjuEmPOcCfv5GHZnK9flfvhfE2NYUvUsA/exec`;
+      const response = await fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `email=${encodeURIComponent(email)}`
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    });
-  </script>
+
+      const data = await response.json();
+
+      if (data.success) {
+        messageBox.style.backgroundColor = "#e8f5e9";
+        messageBox.style.color = "#2e7d32";
+        messageBox.textContent = "✅ Thank you! You will be notified soon.";
+      } else {
+        throw new Error(data.message || "Something went wrong. Please try again later.");
+      }
+    } catch (err) {
+      messageBox.style.backgroundColor = "#fdecea";
+      messageBox.style.color = "#d32f2f";
+      messageBox.textContent = `❌ Error: ${err.message}`;
+      console.error(err);
+    }
+  });
+</script>
 </body>
 </html>
