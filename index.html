@@ -170,12 +170,14 @@
 
     const script = document.createElement("script");
     script.src = `https://script.google.com/macros/s/AKfycbxOz4DaxOMAi92aVdETZDJsavQPzagOmfNcVSjuEmPOcCfv5GHZnK9flfvhfE2NYUvUsA/exec?email=${encodeURIComponent(email)}&callback=${callbackName}`;
+    script.async = true;
     document.body.appendChild(script);
 
     script.onerror = function () {
       messageBox.style.backgroundColor = "#fdecea";
       messageBox.style.color = "#d32f2f";
-      messageBox.textContent = "❌ Error: Failed to load the script.";
+      messageBox.textContent = `❌ Error: Failed to load the script. Please try again later.`;
+      console.error("Script load error for URL:", script.src);
       delete window[callbackName];
       document.body.removeChild(script);
     };
