@@ -1,118 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frutolyte - ORS Brand</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fff;
-            color: #333;
-        }
-        header {
-            font-family:Calibri;
-			background-color: #ff9800;
-            padding: 20px;
-            text-align: center;
-            color: white;
-            font-size: 100px;
-        }
-        .navbar {
-            background-color: #ffb74d;
-        }
-        .navbar-nav .nav-link {
-            color: white;
-            font-size: 18px;
-        }
-        .container {
-            padding: 50px 20px;
-            text-align: center;
-        }
-        footer {
-            background-color: #ff9800;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frutolyte - Coming Soon</title>
+  <style>
+    :root {
+      --green: #2e7d32;
+      --light-green: #e8f5e9;
+      --red: #d32f2f;
+      --bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('1286689.jpg') no-repeat center center/cover;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    img.logo {
+      width: 160px;
+      max-width: 40vw;
+      margin-bottom: 20px;
+      animation: floatIn 1.2s ease-in-out;
+    }
+
+    @keyframes floatIn {
+      0% { transform: translateY(-20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      margin-bottom: 10px;
+      color: var(--light-green);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: #fff;
+      max-width: 600px;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    input[type="email"] {
+      padding: 12px;
+      width: 100%;
+      max-width: 300px;
+      border: 2px solid var(--green);
+      border-radius: 5px;
+      outline: none;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: var(--red);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b71c1c;
+    }
+
+    pre {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      color: #333;
+      max-width: 600px;
+      width: 100%;
+      margin-top: 20px;
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 15px;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      color: #ddd;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      img.logo {
+        width: 120px;
+        max-width: 35vw;
+      }
+      h1 {
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
+      }
+      p {
+        max-width: 90%;
+      }
+      form {
+        flex-direction: column;
+        align-items: center;
+      }
+      input[type="email"] {
+        max-width: 80%;
+      }
+      button {
+        width: 80%;
+        max-width: 300px;
+      }
+      pre {
+        max-width: 90%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      img.logo {
+        width: 100px;
+        max-width: 30vw;
+      }
+      h1 {
+        font-size: clamp(1.5rem, 4.5vw, 1.8rem);
+      }
+      p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        max-width: 95%;
+      }
+      input[type="email"], button {
+        max-width: 90%;
+      }
+      pre {
+        font-size: clamp(0.7rem, 2vw, 0.8rem);
+        max-width: 95%;
+      }
+      footer {
+        font-size: clamp(0.7rem, 2vw, 0.8rem);
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        Frutolyte - ORS Brand
-    </header>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <div class="container" id="home" data-aos="fade-up">
-                <h1>Welcome to Frutolyte</h1>
-                <p>Your go-to ORS brand for hydration and energy.</p>
-            </div>
-          </div>
-          <div class="col-sm">
-            One of three columns
-          </div>
-          <div class="col-sm">
-            One of three columns
-          </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-              One of three columns
-            </div>
-            <div class="col-sm">
-              One of three columns
-            </div>
-            <div class="col-sm">
-              One of three columns
-            </div>
-          </div>
-      </div>
-    <div class="container" id="home" data-aos="fade-up">
-        <h1>Welcome to Frutolyte</h1>
-        <p>Your go-to ORS brand for hydration and energy.</p>
-    </div>
-    <div class="container" id="about" data-aos="fade-left">
-        <h2>About Us</h2>
-        <p>Frutolyte is a premium ORS brand dedicated to keeping you hydrated and active.</p>
-    </div>
-    <div class="container" id="products" data-aos="fade-right">
-        <h2>Our Products</h2>
-        <p>Explore our range of refreshing and effective ORS solutions.</p>
-    </div>
-    <div class="container" id="contact" data-aos="fade-up">
-        <h2>Contact Us</h2>
-        <p>Email: contact@frutolyte.com</p>
-        <p>Phone: +91 9876543210</p>
-    </div>
-    <footer>
-        &copy; 2025 Frutolyte. All rights reserved.
-    </footer>
-    <script>
-        AOS.init();
-    </script>
+  <img src="img8.png" alt="Frutolyte Logo" class="logo" />
+  <h1>Coming Soon</h1>
+  <h2>Frutolyte - An ORS Product</h2>
+  <p>We’re working on something refreshing for your health. Frutolyte will be live soon!</p>
+
+  <form id="notifyForm">
+    <input type="email" id="emailInput" placeholder="Enter your email to get updates" required />
+    <button type="submit">Notify Me</button>
+  </form>
+
+  <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
+
+  <script>
+    document.getElementById('notifyForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('emailInput').value;
+      const webhookURL = "https://script.google.com/macros/s/AKfycbxX_-FTv5B-HnzdfDAZcx1P2R8YrHNezxpFFYp2BR8mGZTAEpW3iRLKt1sE219uxa1jfw/exec"; // Replace this
+
+      const response = await fetch(webhookURL, {
+        method: "POST",
+        body: JSON.stringify({ email }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.ok) {
+        alert("Thank you! Your email has been saved.");
+        document.getElementById('emailInput').value = "";
+      } else {
+        alert("Oops! Something went wrong. Please try again later.");
+      }
+    });
+  </script>
 </body>
 </html>
