@@ -31,7 +31,7 @@
     min-height: 100vh;
 
     background-repeat: no-repeat;
-    background-size: contain; /* Show full image */
+    background-size: var(--bg-size, cover); /* controlled by JS */
     background-position: center center;
     background-attachment: fixed;
 
@@ -151,7 +151,17 @@
   <div id="messageBox"></div>
 
   <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
+  
+  <script>
+    function setBackgroundSizeByOrientation() {
+      const isLandscape = window.innerWidth > window.innerHeight;
+      document.body.style.setProperty('--bg-size', isLandscape ? 'contain' : 'cover');
+    }
 
+    window.addEventListener('load', setBackgroundSizeByOrientation);
+    window.addEventListener('resize', setBackgroundSizeByOrientation);
+  </script>
+  
   <script>
     // Set appropriate background image based on orientation
     function setBackgroundImage() {
