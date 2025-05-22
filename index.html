@@ -31,7 +31,7 @@
     min-height: 100vh;
 
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain; /* Show full image */
     background-position: center center;
     background-attachment: fixed;
 
@@ -40,8 +40,9 @@
 
   @media (max-width: 768px) {
     body {
-      background-attachment: scroll; /* Disable fixed background on small devices */
+      background-attachment: scroll;
     }
+  }
   }
 
     img.logo {
