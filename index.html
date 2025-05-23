@@ -155,7 +155,7 @@
   <script>
     function setBackgroundSizeByOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
-      document.body.style.setProperty('--bg-size', isLandscape ? 'cover' : 'cover');
+      document.body.style.setProperty('--bg-size', isLandscape ? 'cover' : 'contain');
     }
 
     window.addEventListener('load', setBackgroundSizeByOrientation);
