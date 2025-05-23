@@ -10,7 +10,7 @@
       --green: #2e7d32;
       --light-green: #e8f5e9;
       --red: #d32f2f;
-      --bg: #ffffff;
+      --bg: #fff6e5;
     }
 
     * {
@@ -33,6 +33,7 @@
       flex-direction: column;
       text-align: center;
       padding: 20px;
+      background-color: var(--bg); /* Color outside image */
       background-repeat: no-repeat;
       background-size: var(--bg-size, cover);
       background-position: center center;
@@ -60,11 +61,13 @@
     }
 
     p {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: #f0f0f0;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      color: #ffffff;
       max-width: 600px;
       margin-bottom: 30px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 1),
+        0 0 8px rgba(0, 0, 0, 1); /* extra glow */
     }
 
     form {
@@ -139,8 +142,8 @@
 </head>
 <body>
   <!-- <img src="Logo.png" alt="Frutolyte Logo" class="logo" /> -->
-  <h1>Coming Soon</h1>
-  <p><strong>We’re working on something refreshing for your health. Frutolyte will be live soon!</strong></p>
+  
+  <p><strong><br><br><br><br><br><br><br><br><br>We’re working on something refreshing for your health. Frutolyte will be live soon!</strong></p>
 
   <form id="notifyForm">
     <input type="email" id="emailInput" placeholder="Enter your email to get updates" required />
@@ -154,14 +157,16 @@
   <script>
     function setBackgroundSizeByOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
-      document.body.style.setProperty('--bg-size', isLandscape ? 'cover' : 'cover');
+      document.body.style.setProperty('--bg-size', isLandscape ? 'contain' : 'contain');
     }
 
     function setBackgroundImage() {
       const isPortrait = window.innerHeight > window.innerWidth;
       const bgImage = isPortrait ? 'BG_P.webp' : 'BG_L.webp';
+      const bgColor = isPortrait ? '#fff6e5' : '#fffbe6'; // <== Your desired colors
       document.body.style.backgroundImage =
-        `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${bgImage}')`;
+        `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('${bgImage}')`;
+        document.body.style.backgroundColor = bgColor;
     }
 
     window.addEventListener('load', () => {
