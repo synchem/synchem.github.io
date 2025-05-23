@@ -19,31 +19,26 @@
       padding: 0;
     }
 
-  body {
-    font-family: "Segoe UI", sans-serif;
-    color: var(--green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    min-height: 100vh;
-
-    background-repeat: no-repeat;
-    background-size: var(--bg-size, cover); /* controlled by JS */
-    background-position: center center;
-    background-attachment: fixed;
-
-    transition: background-image 0.5s ease-in-out;
-  }
-
-  @media (max-width: 768px) {
-    body {
-      background-attachment: fixed;
+    html, body {
+      height: 100%;
+      overflow: hidden; /* Prevent scroll */
     }
-  }
-  }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+      background-repeat: no-repeat;
+      background-size: var(--bg-size, cover);
+      background-position: center center;
+      background-attachment: fixed;
+      transition: background-image 0.5s ease-in-out;
+    }
 
     img.logo {
       width: 180px;
@@ -135,11 +130,15 @@
         flex-direction: column;
         align-items: center;
       }
+
+      body {
+        background-attachment: scroll; /* Better performance on mobile */
+      }
     }
   </style>
 </head>
 <body>
-  <!--<img src="Logo.png" style="width: 500px; height: auto;" alt="Frutolyte Logo" class="logo" />-->
+  <!-- <img src="Logo.png" alt="Frutolyte Logo" class="logo" /> -->
   <h1>Coming Soon</h1>
   <p><strong>We’re working on something refreshing for your health. Frutolyte will be live soon!</strong></p>
 
@@ -151,29 +150,30 @@
   <div id="messageBox"></div>
 
   <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
-  
+
   <script>
     function setBackgroundSizeByOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
       document.body.style.setProperty('--bg-size', isLandscape ? 'cover' : 'cover');
     }
 
-    window.addEventListener('load', setBackgroundSizeByOrientation);
-    window.addEventListener('resize', setBackgroundSizeByOrientation);
-  </script>
-  
-  <script>
-    // Set appropriate background image based on orientation
     function setBackgroundImage() {
       const isPortrait = window.innerHeight > window.innerWidth;
       const bgImage = isPortrait ? 'BG_P.webp' : 'BG_L.webp';
-      document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${bgImage}')`;
+      document.body.style.backgroundImage =
+        `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${bgImage}')`;
     }
 
-    window.addEventListener('load', setBackgroundImage);
-    window.addEventListener('resize', setBackgroundImage);
+    window.addEventListener('load', () => {
+      setBackgroundSizeByOrientation();
+      setBackgroundImage();
+    });
 
-    // Email Submission
+    window.addEventListener('resize', () => {
+      setBackgroundSizeByOrientation();
+      setBackgroundImage();
+    });
+
     document.getElementById('notifyForm').addEventListener('submit', async function (e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
@@ -205,16 +205,10 @@
         } else {
           throw new Error(data.message || "Something went wrong.");
         }
-      } //catch (err) {
-      //messageBox.style.backgroundColor = "#fdecea";
-      //messageBox.style.color = "#d32f2f";
-      //messageBox.textContent = ❌ Error: ${err.message};
-      //console.error("Fetch error:", err);
-    //}
-      catch (err) {
-        messageBox.style.backgroundColor = "#e8f5e9";
-        messageBox.style.color = "#2e7d32";
-        messageBox.textContent = "✅ Thank you! You will be notified soon.";
+      } catch (err) {
+        messageBox.style.backgroundColor = "#fdecea";
+        messageBox.style.color = "#d32f2f";
+        messageBox.textContent = `❌ Error: ${err.message}`;
         console.error("Fetch error:", err);
       }
     });
