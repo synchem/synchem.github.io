@@ -40,7 +40,6 @@
       background-repeat: no-repeat;
       background-size: var(--bg-size, cover);
       background-position: center center;
-
       transition: background-image 0.5s ease-in-out;
       display: flex;
       align-items: center;
@@ -73,9 +72,7 @@
       color: #ffffff;
       max-width: 600px;
       margin-bottom: 30px;
-      text-shadow:
-        2px 2px 4px rgba(0, 0, 0, 1),
-        0 0 8px rgba(0, 0, 0, 1);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 0 0 8px rgba(0, 0, 0, 1);
     }
 
     form {
@@ -141,6 +138,7 @@
       width: 100%;
       height: 100%;
       border: none;
+      display: none; /* Hidden until loaded */
     }
 
     footer {
@@ -170,7 +168,6 @@
 <body>
 
   <div id="topContent">
-    <!-- <img src="Logo.png" alt="Frutolyte Logo" class="logo" /> -->
     <p><strong><br><br><br><br><br><br><br><br><br>
       We’re working on something refreshing for your health. Frutolyte will be live soon!</strong></p>
 
@@ -182,13 +179,15 @@
     <div id="messageBox"></div>
   </div>
 
-  <div id="mapFrameContainer">
-    <iframe src="RetailerMap.html" id="retailerMap" loading="lazy"></iframe>
+  <!-- Lazy loaded map -->
+  <div id="mapFrameContainer" data-src="RetailerMap.html">
+    <iframe id="retailerMap" width="100%" height="100%" frameborder="0"></iframe>
   </div>
 
   <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
 
   <script>
+    // Background image logic
     function setBackgroundSizeByOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
       document.getElementById('topContent').style.setProperty('--bg-size', isLandscape ? 'contain' : 'contain');
@@ -215,6 +214,7 @@
       setBackgroundImage();
     });
 
+    // Form submission
     document.getElementById('notifyForm').addEventListener('submit', async function (e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
@@ -253,6 +253,25 @@
         console.error("Fetch error:", err);
       }
     });
+
+    // Lazy load the iframe when it comes into view
+    function lazyLoadMap() {
+      const mapContainer = document.getElementById('mapFrameContainer');
+      const mapIframe = document.getElementById('retailerMap');
+      const mapSrc = mapContainer.getAttribute('data-src');
+
+      if (!mapIframe.src) {
+        const rect = mapContainer.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+          mapIframe.src = mapSrc;
+          mapIframe.style.display = "block";
+          window.removeEventListener('scroll', lazyLoadMap);
+        }
+      }
+    }
+
+    window.addEventListener('scroll', lazyLoadMap);
+    window.addEventListener('load', lazyLoadMap);
   </script>
 </body>
 </html>
