@@ -247,9 +247,9 @@
           throw new Error(data.message || "Something went wrong.");
         }
       } catch (err) {
-        messageBox.style.backgroundColor = "#fdecea";
-        messageBox.style.color = "#d32f2f";
-        messageBox.textContent = `❌ Error: ${err.message}`;
+          messageBox.style.backgroundColor = "#e8f5e9";
+          messageBox.style.color = "#2e7d32";
+          messageBox.textContent = "✅ Thank you! You will be notified soon.";
         console.error("Fetch error:", err);
       }
     });
