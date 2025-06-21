@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frutolyte - Coming Soon</title>
+  <style>
+    :root {
+      --green: #2e7d32;
+      --light-green: #e8f5e9;
+      --red: #d32f2f;
+      --bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    img.logo {
+      width: 160px;
+      margin-bottom: 20px;
+      animation: floatIn 1.2s ease-in-out;
+    }
+
+    @keyframes floatIn {
+      0% { transform: translateY(-20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      color: var(--green);
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #444;
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    input[type="email"] {
+      padding: 12px;
+      width: 260px;
+      border: 2px solid var(--green);
+      border-radius: 5px;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: var(--red);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b71c1c;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+      input[type="email"] { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <img src="img8.png" alt="Frutolyte Logo" class="logo" />
+  <h1>Coming Soon</h1>
+  <p>We’re working on something refreshing for your health. Frutolyte will be live soon!</p>
+
+  <form onsubmit="alert('Thank you! We will notify you once we launch.'); return false;">
+    <input type="email" placeholder="Enter your email to get updates" required />
+    <button type="submit">Notify Me</button>
+  </form>
+
+  <footer>&copy; 2025 Frutolyte.com. All rights reserved.</footer>
+</body>
+</html>
