@@ -10,7 +10,7 @@
       --green: #2e7d32;
       --light-green: #e8f5e9;
       --red: #d32f2f;
-      --bg: #fff6e5;
+      --bg: #fff5e4;
     }
 
     * {
@@ -163,7 +163,7 @@
     function setBackgroundImage() {
       const isPortrait = window.innerHeight > window.innerWidth;
       const bgImage = isPortrait ? 'BG_P.webp' : 'BG_L.webp';
-      const bgColor = isPortrait ? '#fff6e5' : '#fffbe6'; // <== Your desired colors
+      const bgColor = isPortrait ? '#fff5e4' : '#fffbe6'; // <== Your desired colors
       document.body.style.backgroundImage =
         `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('${bgImage}')`;
         document.body.style.backgroundColor = bgColor;
