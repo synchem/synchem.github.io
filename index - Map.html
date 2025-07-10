@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frutolyte - Coming Soon</title>
+  <link rel="icon" type="image/png" href="Logo.ico">
+  <style>
+    :root {
+      --green: #2e7d32;
+      --light-green: #e8f5e9;
+      --red: #d32f2f;
+      --bg: #fff6e5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      color: var(--green);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: var(--bg);
+    }
+
+    #topContent {
+      width: 100%;
+      padding: 20px;
+      background-repeat: no-repeat;
+      background-size: var(--bg-size, cover);
+      background-position: center center;
+      transition: background-image 0.5s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    img.logo {
+      width: 180px;
+      max-width: 40vw;
+      margin-bottom: 20px;
+      animation: floatIn 1.2s ease-in-out;
+    }
+
+    @keyframes floatIn {
+      0% { transform: translateY(-20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 3rem);
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      color: #ffffff;
+      max-width: 600px;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 0 0 8px rgba(0, 0, 0, 1);
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    input[type="email"] {
+      padding: 12px;
+      width: 100%;
+      max-width: 300px;
+      border: 2px solid var(--green);
+      border-radius: 6px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: var(--red);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b71c1c;
+    }
+
+    #messageBox {
+      display: none;
+      padding: 14px;
+      margin-top: 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    #mapFrameContainer {
+      width: 100%;
+      max-width: 800px;
+      height: 60vh;
+      margin-top: 30px;
+      border: 2px solid #2e7d32;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background-color: rgba(255, 255, 255, 0.9);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.9), white);
+      padding: 10px;
+    }
+
+    #retailerMap {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none; /* Hidden until loaded */
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      color: #888;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      img.logo {
+        width: 120px;
+        max-width: 30vw;
+      }
+
+      form {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #topContent {
+        background-attachment: scroll;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topContent">
+    <p><strong><br><br><br><br><br><br><br><br><br>
+      We’re working on something refreshing for your health. Frutolyte will be live soon!</strong></p>
+
+    <form id="notifyForm">
+      <input type="email" id="emailInput" placeholder="Enter your email to get updates" required />
+      <button type="submit">Notify Me</button>
+    </form>
+
+    <div id="messageBox"></div>
+  </div>
+
+  <!-- Lazy loaded map -->
+  <div id="mapFrameContainer" data-src="RetailerMap.html">
+    <iframe id="retailerMap" width="100%" height="100%" frameborder="0"></iframe>
+  </div>
+
+  <footer>© 2025 Frutolyte.com. All rights reserved.</footer>
+
+  <script>
+    // Background image logic
+    function setBackgroundSizeByOrientation() {
+      const isLandscape = window.innerWidth > window.innerHeight;
+      document.getElementById('topContent').style.setProperty('--bg-size', isLandscape ? 'contain' : 'contain');
+    }
+
+    function setBackgroundImage() {
+      const isPortrait = window.innerHeight > window.innerWidth;
+      const bgImage = isPortrait ? 'BG_P.webp' : 'BG_L.webp';
+      const bgColor = isPortrait ? '#fff6e5' : '#fffbe6';
+
+      const topContent = document.getElementById('topContent');
+      topContent.style.backgroundImage =
+        `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('${bgImage}')`;
+      document.body.style.backgroundColor = bgColor;
+    }
+
+    window.addEventListener('load', () => {
+      setBackgroundSizeByOrientation();
+      setBackgroundImage();
+    });
+
+    window.addEventListener('resize', () => {
+      setBackgroundSizeByOrientation();
+      setBackgroundImage();
+    });
+
+    // Form submission
+    document.getElementById('notifyForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const messageBox = document.getElementById('messageBox');
+
+      messageBox.style.display = "block";
+      messageBox.textContent = "Submitting... please wait.";
+      messageBox.style.backgroundColor = "#fff3cd";
+      messageBox.style.color = "#856404";
+
+      try {
+        const url = "https://script.google.com/macros/s/AKfycbxOz4DaxOMAi92aVdETZDJsavQPzagOmfNcVSjuEmPOcCfv5GHZnK9flfvhfE2NYUvUsA/exec";
+        const response = await fetch(url, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: `email=${encodeURIComponent(email)}`
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+
+        if (data.success) {
+          messageBox.style.backgroundColor = "#e8f5e9";
+          messageBox.style.color = "#2e7d32";
+          messageBox.textContent = "✅ Thank you! You will be notified soon.";
+        } else {
+          throw new Error(data.message || "Something went wrong.");
+        }
+      } catch (err) {
+        messageBox.style.backgroundColor = "#e8f5e9";
+        messageBox.style.color = "#2e7d32";
+        messageBox.textContent = "✅ Thank you! You will be notified soon.";
+        console.error("Fetch error:", err);
+      }
+    });
+
+    // Lazy load the iframe when it comes into view
+    function lazyLoadMap() {
+      const mapContainer = document.getElementById('mapFrameContainer');
+      const mapIframe = document.getElementById('retailerMap');
+      const mapSrc = mapContainer.getAttribute('data-src');
+
+      if (!mapIframe.src) {
+        const rect = mapContainer.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+          mapIframe.src = mapSrc;
+          mapIframe.style.display = "block";
+          window.removeEventListener('scroll', lazyLoadMap);
+        }
+      }
+    }
+
+    window.addEventListener('scroll', lazyLoadMap);
+    window.addEventListener('load', lazyLoadMap);
+  </script>
+</body>
+</html>
